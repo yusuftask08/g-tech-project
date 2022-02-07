@@ -1,18 +1,27 @@
 <template>
   <div>
     <v-row>
-      <v-card class="mx-auto my-8" max-width="250" v-for="n in 20" :key="n.id">
+      <v-card
+        class="mx-auto my-8 d-flex flex-column"
+        max-width="250"
+        v-for="item in data"
+        :key="item.id"
+      >
         <v-img
-          height="250"
-          src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+          min-height="250"
+          :src="'http://image.tmdb.org/t/p/original/' + item.backdrop_path"
         />
-        <v-card-title>Spiderman</v-card-title>
+        <v-card-title>
+          <span class="movie-title">
+            {{ item.title ? item.title : item.name }}
+          </span>
+        </v-card-title>
         <v-card-text>
-          <div class="text-h6">28.02.2020</div>
+          <div class="text-h6">{{ item.release_date }}</div>
         </v-card-text>
         <v-spacer />
         <div class="ml-auto my-2">
-          <v-btn class="mx-2" color="primary" @click="movieDetailPage">
+          <v-btn class="mx-2" color="primary" @click="movieDetailPage(item)">
             Detay
           </v-btn>
         </div>
@@ -22,13 +31,15 @@
 </template>
 <script>
 export default {
-  data() {
-    return {};
-  },
+  props: ["data"],
   methods: {
-    movieDetailPage() {
-      this.$router.push("/detail");
+    movieDetailPage(e) {
+      this.$router.push(`detail/${e?.id}`);
     },
   },
 };
 </script>
+<style lang="sass" >
+.movie-title
+  font-size: 1.1rem !important
+</style>
