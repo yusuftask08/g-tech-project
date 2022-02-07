@@ -1,15 +1,14 @@
 <template>
-  <hello-world />
+  <search />
 </template>
 
 <script>
-  import HelloWorld from '../components/HelloWorld'
+import Search from "../components/Search/index.vue";
 
-  export default {
-    name: 'Home',
-
-    components: {
-      HelloWorld,
-    },
-  }
+export default {
+  name: "Home",
+  components: {
+    Search,
+  },
+};
 </script>
