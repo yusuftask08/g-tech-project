@@ -1,12 +1,7 @@
 <template>
   <div>
     <v-row>
-      <v-card
-        class="mx-auto my-8 row"
-        max-width="300"
-        v-for="n in 10"
-        :key="n.id"
-      >
+      <v-card class="mx-auto my-8" max-width="250" v-for="n in 20" :key="n.id">
         <v-img
           height="250"
           src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
