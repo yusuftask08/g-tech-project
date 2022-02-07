@@ -1,15 +1,13 @@
 <template>
-  <v-container>
-    <v-col cols="12" class="mt-5">
-      <v-text-field
-        v-model="query"
-        outlined
-        @keydown.enter="sendQuery"
-        label="Film Ara"
-        prepend-inner-icon="mdi-magnify"
-      />
-    </v-col>
-  </v-container>
+  <v-col cols="12" class="mt-5">
+    <v-text-field
+      v-model="query"
+      outlined
+      @keydown.enter="sendQuery"
+      label="Film Ara"
+      prepend-inner-icon="mdi-magnify"
+    />
+  </v-col>
 </template>
 
 <script>
