@@ -1,6 +1,6 @@
 <template>
-  <div class="d-flex mt-5">
-    <v-col cols="10" class="mt-15 ml-15 d-flex">
+  <div class="d-flex">
+    <v-col cols="10" class="mt-5 ml-10 d-flex">
       <v-img
         max-height="110%"
         max-width="50%"
@@ -42,7 +42,7 @@
         </div>
       </div>
     </v-col>
-    <v-col cols="1" class="mt-15">
+    <v-col cols="1.5" class="mt-5">
       <v-icon
         class="back-icon"
         large
@@ -51,7 +51,7 @@
       >
         mdi-arrow-left
       </v-icon>
-      Geri dön
+      {{ $t("Homepage") }}
     </v-col>
   </div>
 </template>

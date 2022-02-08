@@ -15,7 +15,6 @@ import {
     SET_SEARCH_QUERY,
     SET_MOVIE_DETAIL,
     SET_CAST,
-    SET_SORT_BY_MOVIES
 } from "./mutations.type";
 import axios from "axios";
 
@@ -40,12 +39,13 @@ const actions = {
                 .get(
                     `${TMDB_API}movie/popular?api_key=${TMDB_API_KEY}&language=tr-Tr&page=1}`
                 ).then(resp => {
+                    console.log('resp', resp);
                     context.commit(SET_POPULAR_MOVIES, resp?.data?.results)
                     resolve(resp)
                 })
                 .catch(error => {
-                    reject(error)
                     console.log(error)
+                    reject(error)
                 })
         })
     },
@@ -59,8 +59,8 @@ const actions = {
                     resolve(resp)
                 })
                 .catch(error => {
-                    reject(error)
                     console.log(error)
+                    reject(error)
                 })
         })
     },
@@ -71,9 +71,9 @@ const actions = {
                     context.commit(SET_POPULAR_MOVIES, resp?.data?.results)
                     resolve(resp)
                 })
-                .catch(error => {
-                    reject(error)
-                    console.log(error)
+                .catch(err => {
+                    console.log(err)
+                    reject(err)
                 })
         })
     },
@@ -84,25 +84,23 @@ const actions = {
                     context.commit(SET_POPULAR_MOVIES, resp?.data?.results)
                     resolve(resp)
                 })
-                .catch(error => {
-                    reject(error)
-                    console.log(error)
+                .catch(err => {
+                    console.log(err)
+                    reject(err)
                 })
         })
     },
     [MOVIE_DETAIL](context, credentials) {
         axios.get(`${TMDB_API}movie/${credentials.id}?api_key=${TMDB_API_KEY}&language=tr-TR&page=1&append_to_response=similar,changes, credits, images, keywords, lists, releases, reviews, translations, videos`).then(_ => {
-            if (_.status === 200) {
-                console.log('_', _);
-                context.commit(SET_MOVIE_DETAIL, _?.data)
+            if (resp.status === 200) {
+                context.commit(SET_MOVIE_DETAIL, resp?.data)
             }
         }).catch(err => {
             console.log(`err`, err)
         });
         axios.get(`${TMDB_API}movie/${credentials.id}/credits?api_key=${TMDB_API_KEY}&language=tr-TR&page=1`).then(_ => {
-            if (_.status === 200) {
-                console.log('_ cast', _);
-                context.commit(SET_CAST, _.data)
+            if (resp.status === 200) {
+                context.commit(SET_CAST, resp.data)
             }
         }).catch(err => {
             console.log(`err`, err)

@@ -1,9 +1,9 @@
 <template>
   <div>
-    <v-row>
+    <v-row class="mx-2">
       <v-card
         class="mx-auto my-8 d-flex flex-column"
-        max-width="250"
+        max-width="19%"
         v-for="(item, index) in data"
         :key="index.id"
       >
@@ -17,14 +17,29 @@
           </span>
         </v-card-title>
         <v-card-text>
-          <div class="text-h6">
-            {{ item.release_date ? item.release_date : "veri yok" }}
+          <div class="d-flex align-items-center">
+            <v-icon> mdi-star-outline</v-icon>
+            <span class="ml-3 my-1 font-weight-bold">
+              {{ item.vote_count ? item.vote_count : "veri yok" }}
+            </span>
+          </div>
+          <div class="d-flex align-items-center">
+            <v-icon> mdi-calendar</v-icon>
+            <span class="ml-3 my-1 font-weight-bold">
+              {{ item.release_date ? item.release_date : "veri yok" }}
+            </span>
+          </div>
+          <div class="d-flex align-items-center">
+            <v-icon> mdi-thumb-up-outline</v-icon>
+            <span class="ml-3 my-1 font-weight-bold">
+              {{ item.popularity ? item.popularity : "veri yok" }}</span
+            >
           </div>
         </v-card-text>
         <v-spacer />
         <div class="ml-auto my-2">
           <v-btn class="mx-2" color="primary" @click="movieDetailPage(item)">
-            Detay
+            {{ $t("Detail") }}
           </v-btn>
         </div>
       </v-card>
@@ -43,5 +58,5 @@ export default {
 </script>
 <style lang="sass" >
 .movie-title
-  font-size: 1.1rem !important
+  font-size: 1.2rem !important
 </style>

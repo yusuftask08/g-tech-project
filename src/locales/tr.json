@@ -1,3 +1,11 @@
 {
-  "message": "hello i18n !!"
+  "Language": "Dil",
+  "Search movies": "Film ara",
+  "Sort by": "Sıralama",
+  "Detail": "Detay",
+  "Homepage": "Anasayfa",
+  "Popularity Descending": "Azalan Popülerlik",
+  "Popularity Ascending": "Artan Popülerlik",
+  "Rating Ascending": "Artan Oylar",
+  "Rating Descending": "Azalan Oylar"
 }

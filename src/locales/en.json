@@ -1,3 +1,11 @@
 {
-  "Search": "hello i18n !!"
+  "Language": "Language",
+  "Search movies": "Search movies",
+  "Sort by": "Sort by",
+  "Detail": "Detail",
+  "Homepage": "Homepage",
+  "Popularity Descending": "Popularity Descending",
+  "Popularity Ascending": "Popularity Ascending",
+  "Rating Descending": "Rating Descending",
+  "Rating Ascending": "Rating Ascending"
 }
