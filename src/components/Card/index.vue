@@ -4,8 +4,8 @@
       <v-card
         class="mx-auto my-8 d-flex flex-column"
         max-width="250"
-        v-for="item in data"
-        :key="item.id"
+        v-for="(item, index) in data"
+        :key="index.id"
       >
         <v-img
           min-height="250"
