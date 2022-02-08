@@ -7,13 +7,15 @@ import {
     LOAD_MORE_MOVIES,
     SEARCH_QUERY,
     MOVIE_DETAIL,
+    SORT_BY_MOVIES
 } from "./actions.type";
 import {
     SET_POPULAR_MOVIES,
     SET_LOAD_MORE_MOVIES,
     SET_SEARCH_QUERY,
     SET_MOVIE_DETAIL,
-    SET_CAST
+    SET_CAST,
+    SET_SORT_BY_MOVIES
 } from "./mutations.type";
 import axios from "axios";
 
@@ -75,6 +77,19 @@ const actions = {
                 })
         })
     },
+    [SORT_BY_MOVIES](context, credentials) {
+        return new Promise((resolve, reject) => {
+            axios.get(`${TMDB_API}discover/movie?api_key=${TMDB_API_KEY}&language=tr-TR&sort_by=${credentials}&page=1&include_adult=false`)
+                .then(resp => {
+                    context.commit(SET_POPULAR_MOVIES, resp?.data?.results)
+                    resolve(resp)
+                })
+                .catch(error => {
+                    reject(error)
+                    console.log(error)
+                })
+        })
+    },
     [MOVIE_DETAIL](context, credentials) {
         axios.get(`${TMDB_API}movie/${credentials.id}?api_key=${TMDB_API_KEY}&language=tr-TR&page=1&append_to_response=similar,changes, credits, images, keywords, lists, releases, reviews, translations, videos`).then(_ => {
             if (_.status === 200) {
@@ -93,7 +108,6 @@ const actions = {
             console.log(`err`, err)
         });
     },
-
 };
 
 const mutations = {
