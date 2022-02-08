@@ -17,7 +17,9 @@
           </span>
         </v-card-title>
         <v-card-text>
-          <div class="text-h6">{{ item.release_date }}</div>
+          <div class="text-h6">
+            {{ item.release_date ? item.release_date : "veri yok" }}
+          </div>
         </v-card-text>
         <v-spacer />
         <div class="ml-auto my-2">
@@ -34,7 +36,7 @@ export default {
   props: ["data"],
   methods: {
     movieDetailPage(e) {
-      this.$router.push(`detail/${e?.id}`);
+      this.$router.push(`/detail/${e?.id}`);
     },
   },
 };

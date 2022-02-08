@@ -2,6 +2,7 @@
   <div class="mx-10 wrapper">
     <search />
     <card :data="popularMovieList" />
+    <router-view></router-view>
   </div>
 </template>
 

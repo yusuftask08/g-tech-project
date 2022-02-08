@@ -1,3 +1,5 @@
 export const SET_POPULAR_MOVIES = "setPopularMovies"
 export const SET_LOAD_MORE_MOVIES = "setLoadMoreMovies"
 export const SET_SEARCH_QUERY = "setSearchQuery"
+export const SET_MOVIE_DETAIL = "setMovieDetail"
+export const SET_CAST = "setCast"
