@@ -4,22 +4,24 @@ import {
 } from "@/common/config";
 import {
     POPULAR_MOVIES,
-    POPULAR_MOVIES_PAGINATION
+    LOAD_MORE_MOVIES,
+    SEARCH_QUERY
 } from "./actions.type";
 import {
     SET_POPULAR_MOVIES,
-    SET_POPULAR_MOVIES_PAGINATION
+    SET_LOAD_MORE_MOVIES,
+    SET_SEARCH_QUERY
 } from "./mutations.type";
 import axios from "axios";
 
 const state = {
     popularMovies: [],
-    popularMoviesPagination: [],
+    loadMoreMovies: [],
 };
 
 const getters = {
     getPopularMovies: state => state.popularMovies,
-    getPopularMoviesPagination: state => state.popularMoviesPagination,
+    getLoadMoreMovies: state => state.loadMoreMovies,
 };
 
 const actions = {
@@ -29,9 +31,8 @@ const actions = {
                 .get(
                     `${TMDB_API}movie/popular?api_key=${TMDB_API_KEY}&language=tr-Tr&page=1}`
                 ).then(resp => {
-                    resolve(resp)
                     context.commit(SET_POPULAR_MOVIES, resp?.data?.results)
-                    context.commit(SET_POPULAR_MOVIES_PAGINATION, resp?.data?.results)
+                    resolve(resp)
                 })
                 .catch(error => {
                     reject(error)
@@ -39,15 +40,27 @@ const actions = {
                 })
         })
     },
-    [POPULAR_MOVIES_PAGINATION](context, credentials) {
-        const page = credentials?.page ? credentials?.page : 1
+    [LOAD_MORE_MOVIES](context, credentials) {
         return new Promise((resolve, reject) => {
             axios
                 .get(
-                    `${TMDB_API}movie/popular?api_key=${TMDB_API_KEY}&language=tr-Tr&page=${page}}`
+                    `${TMDB_API}movie/popular?api_key=${TMDB_API_KEY}&language=tr-Tr&page=${credentials.page}`
                 ).then(resp => {
+                    context.commit(SET_LOAD_MORE_MOVIES, resp?.data?.results)
                     resolve(resp)
-                    context.commit(SET_POPULAR_MOVIES_PAGINATION, resp?.data)
+                })
+                .catch(error => {
+                    reject(error)
+                    console.log(error)
+                })
+        })
+    },
+    [SEARCH_QUERY](context, credentials) {
+        return new Promise((resolve, reject) => {
+            axios.get(`${TMDB_API}search/movie?api_key=${TMDB_API_KEY}&language=tr-TR&query=${credentials}&page=1&include_adult=false`)
+                .then(resp => {
+                    context.commit(SET_POPULAR_MOVIES, resp?.data?.results)
+                    resolve(resp)
                 })
                 .catch(error => {
                     reject(error)
@@ -62,8 +75,11 @@ const mutations = {
     [SET_POPULAR_MOVIES](state, item) {
         state.popularMovies = item
     },
-    [SET_POPULAR_MOVIES_PAGINATION](state, item) {
-        state.popularMoviesPagination = item
+    [SET_LOAD_MORE_MOVIES](state, item) {
+        state.loadMoreMovies = item
+    },
+    [SET_SEARCH_QUERY](state, item) {
+        state.popularMovies = item
     },
 };
 

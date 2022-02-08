@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import { SEARCH_QUERY } from "@/store/actions.type";
 export default {
   name: "Search",
   data() {
@@ -31,8 +32,7 @@ export default {
   },
   methods: {
     sendQuery() {
-      // this.store.dispatch('')
-      this.query = "";
+      this.$store.dispatch(SEARCH_QUERY, this.query);
     },
   },
 };

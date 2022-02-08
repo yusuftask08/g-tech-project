@@ -1,60 +1,65 @@
 <template>
-  <div class="mx-10">
+  <div class="mx-10 wrapper">
     <search />
-    <card :data="moreItems" />
-    <Observer @intersect="intersected" />
+    <card :data="popularMovieList" />
   </div>
 </template>
 
 <script>
 import Search from "../components/Search/index.vue";
 import Card from "../components/Card/index.vue";
-import Observer from "../components/Observer/index.vue";
-import {
-  POPULAR_MOVIES,
-  POPULAR_MOVIES_PAGINATION,
-} from "@/store/actions.type";
+import { LOAD_MORE_MOVIES, POPULAR_MOVIES } from "@/store/actions.type";
 import { mapGetters } from "vuex";
 export default {
   name: "Home",
   components: {
     Search,
     Card,
-    Observer,
   },
   data() {
     return {
       page: 1,
-      isLoadingMore: null,
       moreItems: [],
+      bottom: false,
     };
   },
   methods: {
-    async intersected() {
-      this.page++;
-      await this.$store
-        .dispatch(POPULAR_MOVIES_PAGINATION, {
-          page: this.page,
-        })
-        .then(
-          () => {
-            setTimeout(() => {
-              if (this.$store.getters.getPopularMoviesPagination.results) {
-                this.moreItems.push(
-                  ...this.$store.getters.getPopularMoviesPagination.results
-                );
-              }
-              this.isLoadingMore = false;
-            }, 400);
-          },
-          (error) => {
-            console.log(error);
-            this.isLoadingMore = false;
-          }
-        );
+    bottomVisible() {
+      const scrollY = window.scrollY;
+      const visible = document.documentElement.clientHeight;
+      const pageHeight = document.documentElement.scrollHeight;
+      const bottomOfPage = visible + scrollY >= pageHeight;
+      return bottomOfPage || pageHeight < visible;
     },
     init() {
+      window.addEventListener("scroll", () => {
+        this.bottom = this.bottomVisible();
+      });
       this.$store.dispatch(POPULAR_MOVIES);
+    },
+    async loadMore() {
+      this.page++;
+      await this.$store
+        .dispatch(LOAD_MORE_MOVIES, {
+          page: this.page,
+        })
+        .then(() => {
+          setTimeout(() => {
+            if (this.$store.getters.getLoadMoreMovies) {
+              this.popularMovieList.push(
+                ...this.$store.getters.getLoadMoreMovies
+              );
+            }
+            this.isLoadingMore = false;
+          }, 300);
+        });
+    },
+  },
+  watch: {
+    bottom(bottom) {
+      if (bottom) {
+        this.loadMore();
+      }
     },
   },
   created() {
@@ -63,8 +68,11 @@ export default {
   computed: {
     ...mapGetters({
       popularMovieList: "getPopularMovies",
-      popularMoviePaginationList: "getPopularMoviesPagination",
+      loadMoreMovies: "getLoadMoreMovies",
     }),
   },
 };
 </script>
+
+
+
