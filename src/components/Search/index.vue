@@ -49,7 +49,6 @@
 
 <script>
 import { SEARCH_QUERY, SORT_BY_MOVIES } from "@/store/actions.type";
-import i18n from "@/i18n";
 export default {
   name: "Search",
   data() {

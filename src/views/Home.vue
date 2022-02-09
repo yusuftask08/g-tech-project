@@ -2,7 +2,14 @@
   <div class="mx-10 wrapper">
     <search />
     <card :data="popularMovieList" />
-    <router-view></router-view>
+    <div class="d-flex justify-center align-center mb-15">
+      <v-progress-circular
+        v-if="isLoadingMore"
+        :size="80"
+        color="primary"
+        indeterminate
+      />
+    </div>
   </div>
 </template>
 
@@ -22,6 +29,7 @@ export default {
       page: 1,
       moreItems: [],
       bottom: false,
+      isLoadingMore: false,
     };
   },
   methods: {
@@ -40,6 +48,7 @@ export default {
     },
     async loadMore() {
       this.page++;
+      this.isLoadingMore = true;
       await this.$store
         .dispatch(LOAD_MORE_MOVIES, {
           page: this.page,
@@ -52,7 +61,7 @@ export default {
               );
             }
             this.isLoadingMore = false;
-          }, 300);
+          }, 1000);
         });
     },
   },

@@ -3,7 +3,7 @@
     <v-row class="mx-2">
       <v-card
         class="mx-auto my-8 d-flex flex-column"
-        max-width="19%"
+        max-width="270"
         v-for="(item, index) in data"
         :key="index.id"
       >
@@ -11,6 +11,7 @@
           min-height="250"
           :src="'http://image.tmdb.org/t/p/original/' + item.backdrop_path"
         />
+
         <v-card-title>
           <span class="movie-title">
             {{ item.title ? item.title : item.name }}
@@ -49,6 +50,13 @@
 <script>
 export default {
   props: ["data"],
+  data() {
+    return {
+      class: "mb-6",
+      boilerplate: true,
+      elevation: 2,
+    };
+  },
   methods: {
     movieDetailPage(e) {
       this.$router.push(`/detail/${e?.id}`);
