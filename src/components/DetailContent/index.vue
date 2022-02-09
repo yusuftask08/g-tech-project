@@ -1,13 +1,21 @@
 <template>
-  <div class="d-flex">
-    <v-col cols="10" class="mt-5 ml-10 d-flex">
+  <div class="detail-container">
+    <v-row justify="end">
+      <div class="mt-5 back-button my-5" @click="backToHomePage">
+        <v-icon class="back-icon" large color="green darken-2">
+          mdi-arrow-left
+        </v-icon>
+        {{ $t("Homepage") }}
+      </div>
+    </v-row>
+    <div class="ml-10 d-flex movie-detail">
       <v-img
-        max-height="110%"
+        max-height="100%"
         max-width="50%"
         :src="'http://image.tmdb.org/t/p/original/' + movieInfo.backdrop_path"
       />
-      <div class="d-flex flex-column ml-10">
-        <span class="title text-h4 d-flex mb-4">
+      <div class="d-flex flex-column ml-10 content">
+        <span class="title d-flex mb-4">
           {{ movieInfo.title ? movieInfo.title : movieInfo.name }}
         </span>
         <div class="release-date">
@@ -19,7 +27,7 @@
         <div class="genres">
           <span class="text-h6">Tür</span>
           <div class="d-flex">
-            <p class="" v-for="item in movieInfo.genres" :key="item.id">
+            <p class="ml-1" v-for="item in movieInfo.genres" :key="item.id">
               {{ item.name ? item.name : "veri yok" }}
             </p>
           </div>
@@ -41,18 +49,7 @@
           </p>
         </div>
       </div>
-    </v-col>
-    <v-col cols="1.5" class="mt-5">
-      <v-icon
-        class="back-icon"
-        large
-        color="green darken-2"
-        @click="backToHomePage"
-      >
-        mdi-arrow-left
-      </v-icon>
-      {{ $t("Homepage") }}
-    </v-col>
+    </div>
   </div>
 </template>
 
@@ -68,8 +65,42 @@ export default {
 </script>
 
 <style lang="sass">
-.icon-back
+.back-button
+  margin-right: 50px
   cursor: pointer
-  .route-link a
-    text-decoration: none!important
+
+@media only screen and (max-width: 670px)
+  .detail-container
+    display: flex
+    flex-direction: column !important
+    justify-content: center
+    align-items: center
+
+  .back-button
+    margin-bottom: 40px
+    display: flex
+    align-items: center
+    font-size: 18px
+    margin-left: 250px
+
+  .content
+    margin-right: 40px !important
+    display: flex
+    flex-direction: column !important
+
+    img
+      width: 200px !important
+
+  .movie-detail
+    display: flex
+    justify-content: center
+    flex-direction: column
+    align-items: center
+    width: 100%
+    margin-right: 40px !important
+
+    .title
+      justify-content: center
+      display: flex
+      font-size: 18px !important
 </style>

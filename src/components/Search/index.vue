@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex mt-5">
+  <div class="d-flex mt-5 search-container">
     <v-col cols="7">
       <v-text-field
         v-model="query"
@@ -76,3 +76,25 @@ export default {
   },
 };
 </script>
+<style lang="sass">
+@media only screen and (max-width: 670px)
+  .search-container
+    display: flex
+    flex-direction: column !important
+    justify-content: center
+    align-items: center
+
+  .col-7
+    margin-top: 40px
+    max-width: 100%!important
+
+  .col-3
+    max-width: 100%!important
+
+  .col-2
+    max-width: 100%!important
+
+  .v-input__control
+    margin-top: -40px
+</style>
+
