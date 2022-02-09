@@ -49,6 +49,7 @@
 
 <script>
 import { SEARCH_QUERY, SORT_BY_MOVIES } from "@/store/actions.type";
+import { SET_CATEGORY } from "@/store/mutations.type";
 export default {
   name: "Search",
   data() {
@@ -64,7 +65,12 @@ export default {
   },
   methods: {
     sendQuery() {
-      this.$store.dispatch(SEARCH_QUERY, this.query);
+      this.$store.dispatch(SEARCH_QUERY, this.query).then((_) => {
+        this.$store.commit(SET_CATEGORY, {
+          category: "search",
+          query: this.query,
+        });
+      });
     },
     sendSortBy() {
       this.$store.dispatch(SORT_BY_MOVIES, this.selectSortBy);

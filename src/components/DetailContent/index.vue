@@ -1,7 +1,7 @@
 <template>
   <div class="detail-container">
     <v-row justify="end">
-      <div class="mt-5 back-button my-5" @click="backToHomePage">
+      <div class="back-button my-10" @click="backToHomePage">
         <v-icon class="back-icon" large color="green darken-2">
           mdi-arrow-left
         </v-icon>

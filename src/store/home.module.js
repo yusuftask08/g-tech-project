@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
     TMDB_API,
     TMDB_API_KEY
@@ -15,14 +16,16 @@ import {
     SET_SEARCH_QUERY,
     SET_MOVIE_DETAIL,
     SET_CAST,
+    SET_CATEGORY
 } from "./mutations.type";
-import axios from "axios";
 
 const state = {
     popularMovies: [],
     loadMoreMovies: [],
     cast: [],
     movieDetail: [],
+    category: "",
+    query: ''
 };
 
 const getters = {
@@ -30,14 +33,15 @@ const getters = {
     getLoadMoreMovies: state => state.loadMoreMovies,
     getCast: state => state.cast,
     getMovieDetail: state => state.movieDetail,
+    getCategory: state => state.category,
+    getQuery: state => state.query
 };
-
 const actions = {
     [POPULAR_MOVIES](context) {
         return new Promise((resolve, reject) => {
             axios
                 .get(
-                    `${TMDB_API}movie/popular?api_key=${TMDB_API_KEY}&language=tr-Tr&page=1}`
+                    `${TMDB_API}movie/popular?api_key=${TMDB_API_KEY}&language=tr-Tr&page=1`
                 ).then(resp => {
                     context.commit(SET_POPULAR_MOVIES, resp?.data?.results)
                     resolve(resp)
@@ -49,10 +53,13 @@ const actions = {
         })
     },
     [LOAD_MORE_MOVIES](context, credentials) {
+        const categories = credentials?.category ? 'movie' : credentials?.category
+        const genres = credentials?.category === 'movie' ? 'movie' : 'popular'
+        const query = credentials?.category === 'search' ? `&query=${credentials.query}` : ''
         return new Promise((resolve, reject) => {
             axios
                 .get(
-                    `${TMDB_API}movie/popular?api_key=${TMDB_API_KEY}&language=tr-Tr&page=${credentials.page}`
+                    `${TMDB_API}${categories}/${genres}?api_key=${TMDB_API_KEY}&language=tr-Tr&page=${credentials.page}${query}`
                 ).then(resp => {
                     context.commit(SET_LOAD_MORE_MOVIES, resp?.data?.results)
                     resolve(resp)
@@ -119,6 +126,11 @@ const mutations = {
     },
     [SET_MOVIE_DETAIL](state, item) {
         state.movieDetail = item
+    },
+    [SET_CATEGORY](state, item) {
+        console.log('item', item)
+        state.category = item.category
+        state.query = item.query
     },
     [SET_CAST](state, item) {
         item.cast.map(y => {

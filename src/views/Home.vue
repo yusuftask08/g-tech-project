@@ -68,9 +68,13 @@ export default {
     async loadMore() {
       this.page++;
       this.isLoadingMore = true;
+      const query = this.query ? this.query : "";
+      const category = this.categoryName ? this.categoryName : "popular";
       await this.$store
         .dispatch(LOAD_MORE_MOVIES, {
           page: this.page,
+          category,
+          query,
         })
         .then(() => {
           setTimeout(() => {
@@ -101,6 +105,8 @@ export default {
     ...mapGetters({
       popularMovieList: "getPopularMovies",
       loadMoreMovies: "getLoadMoreMovies",
+      categoryName: "getCategory",
+      query: "getQuery",
     }),
   },
   beforeDestroy() {
