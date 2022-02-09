@@ -9,9 +9,8 @@
       >
         <v-img
           min-height="250"
-          :src="'http://image.tmdb.org/t/p/original/' + item.backdrop_path"
+          :src="'http://image.tmdb.org/t/p/original' + item.backdrop_path"
         />
-
         <v-card-title>
           <span class="movie-title">
             {{ item.title ? item.title : item.name }}
@@ -55,10 +54,13 @@ export default {
       class: "mb-6",
       boilerplate: true,
       elevation: 2,
+      id: null,
     };
   },
   methods: {
     movieDetailPage(e) {
+      console.log("e", e);
+      this.id = e?.id;
       this.$router.push(`/detail/${e?.id}`);
     },
   },

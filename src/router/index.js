@@ -11,21 +11,22 @@ const routes = [
     name: 'Home',
     component: Home,
     meta: {
-      keepAlive: true
+      keepAlive: true,
     }
   },
   {
     path: '/detail/:id',
     name: 'Detail',
     component: Detail,
-
-  }
+  },
 ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
 })
 
 export default router
+
+

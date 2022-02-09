@@ -61,7 +61,7 @@ export default {
   props: ["cast", "movieInfo"],
   methods: {
     backToHomePage() {
-      this.$router.push("/");
+      this.$router.go(-1);
     },
   },
 };
@@ -70,6 +70,6 @@ export default {
 <style lang="sass">
 .icon-back
   cursor: pointer
-.route-link a
-  text-decoration: none!important
+  .route-link a
+    text-decoration: none!important
 </style>

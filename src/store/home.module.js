@@ -39,7 +39,6 @@ const actions = {
                 .get(
                     `${TMDB_API}movie/popular?api_key=${TMDB_API_KEY}&language=tr-Tr&page=1}`
                 ).then(resp => {
-                    console.log('resp', resp);
                     context.commit(SET_POPULAR_MOVIES, resp?.data?.results)
                     resolve(resp)
                 })
@@ -91,14 +90,14 @@ const actions = {
         })
     },
     [MOVIE_DETAIL](context, credentials) {
-        axios.get(`${TMDB_API}movie/${credentials.id}?api_key=${TMDB_API_KEY}&language=tr-TR&page=1&append_to_response=similar,changes, credits, images, keywords, lists, releases, reviews, translations, videos`).then(_ => {
+        axios.get(`${TMDB_API}movie/${credentials.id}?api_key=${TMDB_API_KEY}&language=tr-TR&page=1&append_to_response=similar,changes, credits, images, keywords, lists, releases, reviews, translations, videos`).then(resp => {
             if (resp.status === 200) {
                 context.commit(SET_MOVIE_DETAIL, resp?.data)
             }
         }).catch(err => {
             console.log(`err`, err)
         });
-        axios.get(`${TMDB_API}movie/${credentials.id}/credits?api_key=${TMDB_API_KEY}&language=tr-TR&page=1`).then(_ => {
+        axios.get(`${TMDB_API}movie/${credentials.id}/credits?api_key=${TMDB_API_KEY}&language=tr-TR&page=1`).then(resp => {
             if (resp.status === 200) {
                 context.commit(SET_CAST, resp.data)
             }
