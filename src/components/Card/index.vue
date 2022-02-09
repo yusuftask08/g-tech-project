@@ -54,13 +54,10 @@ export default {
       class: "mb-6",
       boilerplate: true,
       elevation: 2,
-      id: null,
     };
   },
   methods: {
     movieDetailPage(e) {
-      console.log("e", e);
-      this.id = e?.id;
       this.$router.push(`/detail/${e?.id}`);
     },
   },
